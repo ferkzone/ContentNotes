@@ -1,0 +1,32 @@
+# Core
+streamlit>=1.28.0
+python-dotenv>=1.0.0
+google-generativeai>=0.3.0
+PyGithub>=1.59.0
+requests>=2.31.0
+
+# YouTube & subtítulos
+yt-dlp
+webvtt-py>=0.4.6
+
+# Multimedia (moviepy necesita imageio-ffmpeg / imageio / numpy)
+moviepy>=1.0.3
+imageio>=2.30.0
+imageio-ffmpeg>=0.5.1
+numpy>=1.23.0
+pydub>=0.25.1   # opcional si usas pydub para audio
+
+
+
+# FFmpeg wrapper (opcional - NO instala ffmpeg)
+ffmpeg
+
+# PDF / HTML processing
+reportlab
+markdown
+beautifulsoup4
+xhtml2pdf
+
+# Otros
+# pathlib REMOVIDO (es stdlib)
+
