@@ -13,7 +13,6 @@ import markdown
 from io import BytesIO
 import re
 import markdown
-from xhtml2pdf import pisa
 from io import BytesIO
 
 # CONFIGURACIÓN STREAMLIT
@@ -390,4 +389,5 @@ if st.session_state.analysis:
 st.markdown(f"""<div class="eink-footer"><p>{i18n['footer_copyright']}</p></div>""", unsafe_allow_html=True)
 
 # EJECUTAR FLASH AL FINAL DE CADA CARGA
+
 st.markdown('<script>window.triggerEinkFlash();</script>', unsafe_allow_html=True)
