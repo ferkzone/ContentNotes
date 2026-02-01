@@ -8,12 +8,8 @@ import google.generativeai as genai
 from yt_helper import download_and_transcribe
 from config_loader import init_config, get_context_detector, get_prompt_builder
 import tempfile
-import markdown
-import markdown
-from io import BytesIO
 import re
 import markdown
-from io import BytesIO
 
 # CONFIGURACIÓN STREAMLIT
 st.set_page_config(
@@ -391,3 +387,4 @@ st.markdown(f"""<div class="eink-footer"><p>{i18n['footer_copyright']}</p></div>
 # EJECUTAR FLASH AL FINAL DE CADA CARGA
 
 st.markdown('<script>window.triggerEinkFlash();</script>', unsafe_allow_html=True)
+
