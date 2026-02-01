@@ -19,54 +19,61 @@ def extract_video_id(url: str) -> str | None:
 
 def download_with_cobalt(url: str, output_path: str):
     """
-    Usa la API de Cobalt para obtener el enlace de descarga y guarda el archivo.
-    Evita el bloqueo 403 de YouTube.
+    Actualizado para la API v10 de Cobalt.
     """
+    # La URL de la API v10 suele ser la misma, pero el cuerpo del JSON cambió
     headers = {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     }
     
-    # 1. Pedir el enlace de descarga a Cobalt
+    # Payload actualizado para v10
     payload = {
         "url": url,
-        "downloadMode": "audio",
-        "audioFormat": "mp3",
-        "filenameStyle": "basic"
+        "videoQuality": "720",     # Requerido en algunas instancias
+        "audioFormat": "mp3",      # Formato de audio
+        "filenameStyle": "basic",
+        "downloadMode": "audio"    # IMPORTANTE: Solo audio
     }
     
     try:
-        response = requests.post(COBALT_API_URL, json=payload, headers=headers, timeout=15)
+        # Intentamos con la instancia oficial o una alternativa si falla
+        response = requests.post(COBALT_API_URL, json=payload, headers=headers, timeout=20)
         
         if response.status_code != 200:
+            # Si la instancia oficial falla, podrías intentar con otra de la lista
+            # ej: https://cobalt.api.unblockers.it/api/json
             st.error(f"Error en Cobalt API ({response.status_code}): {response.text}")
             return False
             
         data = response.json()
         
-        # Cobalt a veces devuelve "stream" o "url" dependiendo del estado
+        # En v10, el estado suele ser 'tunnel', 'redirect' o 'success'
+        status = data.get("status")
         download_url = data.get("url")
-        if not download_url:
-            # A veces es un picker (varias opciones), intentamos tomar la primera si existe
-            if "picker" in data and data["picker"]:
-                download_url = data["picker"][0].get("url")
-            else:
-                st.error("Cobalt no devolvió un enlace de descarga directo.")
-                return False
 
-        # 2. Descargar el archivo real desde el enlace que nos dio Cobalt
+        if status == "error":
+            st.error(f"Cobalt dice: {data.get('text')}")
+            return False
+
+        if not download_url:
+            st.error("No se encontró el enlace de descarga en la respuesta.")
+            return False
+
+        # 2. Descargar el archivo
         with requests.get(download_url, stream=True) as r:
             r.raise_for_status()
             with open(output_path, 'wb') as f:
-                for chunk in r.iter_content(chunk_size=8192):
+                for chunk in r.iter_content(chunk_size=1024*1024): # Chunks de 1MB
                     f.write(chunk)
         
         return True
 
     except Exception as e:
-        st.error(f"Error conectando con Cobalt: {str(e)}")
+        st.error(f"Error de conexión: {str(e)}")
         return False
-
+        
 def download_and_transcribe(source: str, is_youtube: bool = False) -> str | None:
     """Descarga audio vía Cobalt y transcribe con Gemini"""
     
@@ -155,3 +162,4 @@ def download_and_transcribe(source: str, is_youtube: bool = False) -> str | None
     except Exception as e:
         st.error(f"❌ Error General: {str(e)}")
         return None
+
