@@ -1,0 +1,22 @@
+# ── Core ─────────────────────────────────────────────────────────────────────
+streamlit>=1.35.0
+python-dotenv>=1.0.0
+
+# ── Google AI ─────────────────────────────────────────────────────────────────
+google-generativeai>=0.7.0
+
+# ── YouTube ───────────────────────────────────────────────────────────────────
+yt-dlp>=2024.1.1
+# ffmpeg NO se instala con pip — instalar en el sistema:
+#   Windows: https://ffmpeg.org/download.html  (o: winget install ffmpeg)
+#   macOS:   brew install ffmpeg
+#   Ubuntu:  sudo apt install ffmpeg
+
+# ── PDF / Markdown ────────────────────────────────────────────────────────────
+markdown>=3.6
+pygments>=2.18.0
+weasyprint>=62.0
+Pillow>=10.0.0
+# weasyprint también necesita dependencias del sistema:
+#   Ubuntu: sudo apt install libpango-1.0-0 libpangoft2-1.0-0
+#   macOS:  brew install pango
