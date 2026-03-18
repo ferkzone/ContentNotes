@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Lora:wght@400;500;600&display=swap');
+
+:root {
+    --eink-bg: #f5f5f3;
+    --eink-fg: #1a1a1a;
+    --eink-border: #c8c8c0;
+    --eink-text-light: #505050;
+    --eink-shadow: rgba(0, 0, 0, 0.04);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+html, body, [data-testid="stAppViewContainer"] {
+    background-color: var(--eink-bg) !important;
+    font-family: 'Merriweather', serif !important;
+    color: var(--eink-fg) !important;
+}
+
+[data-testid="stMainBlockContainer"] {
+    background-color: var(--eink-bg) !important;
+    max-width: 1000px !important;
+    padding: 1.5rem 1.5rem !important;
+}
+
+footer, #MainMenu, header { display: none !important; }
+
+/* ── Botones ──────────────────────────────────────────────────────────────── */
+.stButton button[kind="secondary"] {
+    border: 1px solid var(--eink-border) !important;
+    background: transparent !important;
+    color: var(--eink-fg) !important;
+    font-size: 0.8rem !important;
+    min-height: 30px !important;
+    height: 35px !important;
+}
+
+.stButton button[kind="primary"] {
+    background: var(--eink-fg) !important;
+    color: #f5f5f3 !important;
+    border: 2px solid var(--eink-fg) !important;
+    font-family: 'Merriweather', serif !important;
+    border-radius: 0 !important;
+    font-weight: 500 !important;
+    min-height: 48px !important;
+}
+
+.stButton button:hover { box-shadow: 3px 3px 0px var(--eink-shadow) !important; }
+
+/* ── Efecto e-ink flash ───────────────────────────────────────────────────── */
+#eink-flash-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99999;
+    pointer-events: none; opacity: 0; background: #f5f5f3;
+}
+
+/* ── Textura de pantalla e-ink ────────────────────────────────────────────── */
+body::before {
+    content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 9998; opacity: 0.04;
+    background-image:
+        repeating-linear-gradient(0deg, #000 0px, #000 1px, transparent 1px, transparent 3px),
+        repeating-linear-gradient(90deg, #000 0px, #000 1px, transparent 1px, transparent 3px);
+    background-size: 100% 3px, 3px 100%;
+}
+
+body::after {
+    content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 9997;
+    background: radial-gradient(ellipse at center, transparent 0%, transparent 60%,
+        rgba(0,0,0,0.02) 85%, rgba(0,0,0,0.08) 100%);
+}
+
+/* ── Título ───────────────────────────────────────────────────────────────── */
+.eink-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--eink-border);
+}
+.eink-title h1 {
+    font-family: 'Lora', serif;
+    font-size: 2.4rem;
+    color: var(--eink-fg);
+    margin: 0;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+.eink-title p {
+    color: var(--eink-text-light);
+    font-size: 0.95rem;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    margin: 0.5rem 0 0 0;
+}
+
+/* ── Cards ────────────────────────────────────────────────────────────────── */
+.eink-card {
+    background: white !important;
+    border: 2px solid var(--eink-border) !important;
+    padding: 2rem !important;
+    margin-bottom: 1.5rem !important;
+    box-shadow: 6px 6px 0px var(--eink-shadow) !important;
+}
+.eink-card-title {
+    color: var(--eink-fg) !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 1.5rem !important;
+    font-family: 'Lora', serif !important;
+    letter-spacing: 0.6px !important;
+}
+.eink-card-compact {
+    background: white !important;
+    border: 2px solid var(--eink-border) !important;
+    padding: 0.3rem 1rem !important;
+    margin-bottom: 0.2rem !important;
+    box-shadow: 6px 6px 0px var(--eink-shadow) !important;
+}
+.eink-card-compact .eink-card-title {
+    color: var(--eink-fg) !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.2rem !important;
+    font-family: 'Lora', serif !important;
+    letter-spacing: 0.6px !important;
+}
+
+/* ── Divider ──────────────────────────────────────────────────────────────── */
+.eink-divider { height: 2px; background: var(--eink-border); margin: 2rem 0 !important; }
+
+/* ── Resultado ────────────────────────────────────────────────────────────── */
+.eink-result {
+    background: white !important;
+    border: 2px solid var(--eink-border) !important;
+    padding: 2rem !important;
+    margin: 2rem 0 !important;
+    box-shadow: 6px 6px 0px var(--eink-shadow) !important;
+}
+.eink-result h1, .eink-result h2, .eink-result h3 {
+    color: var(--eink-fg) !important;
+    font-family: 'Lora', serif !important;
+    font-weight: 400 !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1rem !important;
+}
+.eink-result p, .eink-result li {
+    color: #2a2a2a !important;
+    line-height: 1.8 !important;
+    margin-bottom: 1rem !important;
+    font-size: 0.95rem !important;
+}
+.eink-result blockquote {
+    border-left: 4px solid var(--eink-border) !important;
+    padding-left: 1rem !important;
+    margin: 1.5rem 0 !important;
+    color: #505050 !important;
+    font-style: italic !important;
+}
+
+/* ── Tabs ─────────────────────────────────────────────────────────────────── */
+[data-baseweb="tab-list"] { border-bottom: 2px solid var(--eink-border) !important; }
+[data-baseweb="tab"] { color: var(--eink-text-light) !important; font-family: 'Merriweather', serif !important; }
+[aria-selected="true"] { color: var(--eink-fg) !important; border-bottom: 2px solid var(--eink-fg) !important; }
+
+/* ── Inputs ───────────────────────────────────────────────────────────────── */
+.stTextInput input {
+    border: 2px solid var(--eink-border) !important;
+    background: #fefefe !important;
+    color: var(--eink-fg) !important;
+    border-radius: 0 !important;
+    font-family: 'Merriweather', serif !important;
+}
+.stTextInput input:focus {
+    border-color: var(--eink-fg) !important;
+    box-shadow: inset 0 0 0 1px var(--eink-fg) !important;
+}
+
+/* ── File uploader ────────────────────────────────────────────────────────── */
+[data-testid="stFileUploadDropzone"] {
+    background: #fafaf8 !important;
+    border: 2px dashed var(--eink-border) !important;
+}
+
+/* ── Metadata ─────────────────────────────────────────────────────────────── */
+.eink-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+.eink-meta-item { padding: 1rem; background: #fafaf8; border: 1px solid var(--eink-border); }
+.eink-meta-label {
+    color: var(--eink-text-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+}
+.eink-meta-value {
+    color: var(--eink-fg);
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: 'Lora', serif;
+}
+
+/* ── Footer ───────────────────────────────────────────────────────────────── */
+.eink-footer {
+    text-align: center;
+    padding: 1.5rem 1.5rem 1rem;
+    border-top: 1px solid var(--eink-border);
+    color: var(--eink-text-light);
+    font-size: 0.85rem;
+    margin-top: 2rem;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    [data-testid="stMainBlockContainer"] { padding: 1.5rem 1rem !important; }
+    .eink-title h1 { font-size: 2rem; }
+}
