@@ -1,219 +1,334 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Lora:wght@400;500;600&display=swap');
-
-:root {
-    --eink-bg: #f5f5f3;
-    --eink-fg: #1a1a1a;
-    --eink-border: #c8c8c0;
-    --eink-text-light: #505050;
-    --eink-shadow: rgba(0, 0, 0, 0.04);
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-
-html, body, [data-testid="stAppViewContainer"] {
-    background-color: var(--eink-bg) !important;
-    font-family: 'Merriweather', serif !important;
-    color: var(--eink-fg) !important;
-}
-
-[data-testid="stMainBlockContainer"] {
-    background-color: var(--eink-bg) !important;
-    max-width: 1000px !important;
-    padding: 1.5rem 1.5rem !important;
-}
-
-footer, #MainMenu, header { display: none !important; }
-
-/* ── Botones ──────────────────────────────────────────────────────────────── */
-.stButton button[kind="secondary"] {
-    border: 1px solid var(--eink-border) !important;
-    background: transparent !important;
-    color: var(--eink-fg) !important;
-    font-size: 0.8rem !important;
-    min-height: 30px !important;
-    height: 35px !important;
-}
-
-.stButton button[kind="primary"] {
-    background: var(--eink-fg) !important;
-    color: #f5f5f3 !important;
-    border: 2px solid var(--eink-fg) !important;
-    font-family: 'Merriweather', serif !important;
-    border-radius: 0 !important;
-    font-weight: 500 !important;
-    min-height: 48px !important;
-}
-
-.stButton button:hover { box-shadow: 3px 3px 0px var(--eink-shadow) !important; }
-
-/* ── Efecto e-ink flash ───────────────────────────────────────────────────── */
-#eink-flash-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99999;
-    pointer-events: none; opacity: 0; background: #f5f5f3;
-}
-
-/* ── Textura de pantalla e-ink ────────────────────────────────────────────── */
-body::before {
-    content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none; z-index: 9998; opacity: 0.04;
-    background-image:
-        repeating-linear-gradient(0deg, #000 0px, #000 1px, transparent 1px, transparent 3px),
-        repeating-linear-gradient(90deg, #000 0px, #000 1px, transparent 1px, transparent 3px);
-    background-size: 100% 3px, 3px 100%;
-}
-
-body::after {
-    content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none; z-index: 9997;
-    background: radial-gradient(ellipse at center, transparent 0%, transparent 60%,
-        rgba(0,0,0,0.02) 85%, rgba(0,0,0,0.08) 100%);
-}
-
-/* ── Título ───────────────────────────────────────────────────────────────── */
-.eink-title {
-    text-align: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 2px solid var(--eink-border);
-}
-.eink-title h1 {
-    font-family: 'Lora', serif;
-    font-size: 2.4rem;
-    color: var(--eink-fg);
-    margin: 0;
-    font-weight: 400;
-    letter-spacing: 1px;
-}
-.eink-title p {
-    color: var(--eink-text-light);
-    font-size: 0.95rem;
-    font-weight: 300;
-    letter-spacing: 0.5px;
-    margin: 0.5rem 0 0 0;
-}
-
-/* ── Cards ────────────────────────────────────────────────────────────────── */
-.eink-card {
-    background: white !important;
-    border: 2px solid var(--eink-border) !important;
-    padding: 2rem !important;
-    margin-bottom: 1.5rem !important;
-    box-shadow: 6px 6px 0px var(--eink-shadow) !important;
-}
-.eink-card-title {
-    color: var(--eink-fg) !important;
-    font-size: 1.1rem !important;
-    font-weight: 600 !important;
-    margin-bottom: 1.5rem !important;
-    font-family: 'Lora', serif !important;
-    letter-spacing: 0.6px !important;
-}
-.eink-card-compact {
-    background: white !important;
-    border: 2px solid var(--eink-border) !important;
-    padding: 0.3rem 1rem !important;
-    margin-bottom: 0.2rem !important;
-    box-shadow: 6px 6px 0px var(--eink-shadow) !important;
-}
-.eink-card-compact .eink-card-title {
-    color: var(--eink-fg) !important;
-    font-size: 0.9rem !important;
-    font-weight: 600 !important;
-    margin-bottom: 0.2rem !important;
-    font-family: 'Lora', serif !important;
-    letter-spacing: 0.6px !important;
-}
-
-/* ── Divider ──────────────────────────────────────────────────────────────── */
-.eink-divider { height: 2px; background: var(--eink-border); margin: 2rem 0 !important; }
-
-/* ── Resultado ────────────────────────────────────────────────────────────── */
-.eink-result {
-    background: white !important;
-    border: 2px solid var(--eink-border) !important;
-    padding: 2rem !important;
-    margin: 2rem 0 !important;
-    box-shadow: 6px 6px 0px var(--eink-shadow) !important;
-}
-.eink-result h1, .eink-result h2, .eink-result h3 {
-    color: var(--eink-fg) !important;
-    font-family: 'Lora', serif !important;
-    font-weight: 400 !important;
-    margin-top: 1.5rem !important;
-    margin-bottom: 1rem !important;
-}
-.eink-result p, .eink-result li {
-    color: #2a2a2a !important;
-    line-height: 1.8 !important;
-    margin-bottom: 1rem !important;
-    font-size: 0.95rem !important;
-}
-.eink-result blockquote {
-    border-left: 4px solid var(--eink-border) !important;
-    padding-left: 1rem !important;
-    margin: 1.5rem 0 !important;
-    color: #505050 !important;
-    font-style: italic !important;
-}
-
-/* ── Tabs ─────────────────────────────────────────────────────────────────── */
-[data-baseweb="tab-list"] { border-bottom: 2px solid var(--eink-border) !important; }
-[data-baseweb="tab"] { color: var(--eink-text-light) !important; font-family: 'Merriweather', serif !important; }
-[aria-selected="true"] { color: var(--eink-fg) !important; border-bottom: 2px solid var(--eink-fg) !important; }
-
-/* ── Inputs ───────────────────────────────────────────────────────────────── */
-.stTextInput input {
-    border: 2px solid var(--eink-border) !important;
-    background: #fefefe !important;
-    color: var(--eink-fg) !important;
-    border-radius: 0 !important;
-    font-family: 'Merriweather', serif !important;
-}
-.stTextInput input:focus {
-    border-color: var(--eink-fg) !important;
-    box-shadow: inset 0 0 0 1px var(--eink-fg) !important;
-}
-
-/* ── File uploader ────────────────────────────────────────────────────────── */
-[data-testid="stFileUploadDropzone"] {
-    background: #fafaf8 !important;
-    border: 2px dashed var(--eink-border) !important;
-}
-
-/* ── Metadata ─────────────────────────────────────────────────────────────── */
-.eink-meta {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-}
-.eink-meta-item { padding: 1rem; background: #fafaf8; border: 1px solid var(--eink-border); }
-.eink-meta-label {
-    color: var(--eink-text-light);
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-bottom: 0.6rem;
-}
-.eink-meta-value {
-    color: var(--eink-fg);
-    font-size: 1.1rem;
-    font-weight: 600;
-    font-family: 'Lora', serif;
-}
-
-/* ── Footer ───────────────────────────────────────────────────────────────── */
-.eink-footer {
-    text-align: center;
-    padding: 1.5rem 1.5rem 1rem;
-    border-top: 1px solid var(--eink-border);
-    color: var(--eink-text-light);
-    font-size: 0.85rem;
-    margin-top: 2rem;
-}
-
-/* ── Responsive ───────────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
-    [data-testid="stMainBlockContainer"] { padding: 1.5rem 1rem !important; }
-    .eink-title h1 { font-size: 2rem; }
+{
+  "app_settings": {
+    "default_language": "es",
+    "supported_languages": [
+      "es",
+      "en"
+    ],
+    "version": "3.1"
+  },
+  "translations": {
+    "es": {
+      "app_title": "📓 ContentNotes",
+      "app_subtitle": "Notas académicas inteligentes",
+      "tab_youtube": "YouTube",
+      "tab_file": "Archivo",
+      "youtube_title": "Procesar video de YouTube",
+      "youtube_placeholder": "https://www.youtube.com/watch?v=...",
+      "file_title": "Cargar archivo de audio o video",
+      "file_types": "Carga tu archivo",
+      "btn_process": "Transcribir y Analizar",
+      "btn_generate": "🚀 Generar notas",
+      "btn_clear": "🗑️ Limpiar",
+      "btn_new": "🔄 Nuevo análisis",
+      "btn_download_pdf": "📄 PDF",
+      "btn_download_md": "📝 Markdown",
+      "downloading": "⏳ Descargando y transcribiendo...",
+      "processing": "⏳ Procesando archivo...",
+      "analyzing": "📊 Analizando...",
+      "transcription_complete": "Transcripción completada",
+      "notes_generated": "Notas generadas",
+      "filename_label": "Nombre del archivo",
+      "meta_type": "Categoría",
+      "meta_source": "Fuente",
+      "meta_subject": "Tema",
+      "error_invalid_url": "⚠️ URL inválida",
+      "error_transcribe": "Error al transcribir",
+      "error_process": "Error al procesar",
+      "footer_copyright": "© 2026 ContentNotes"
+    },
+    "en": {
+      "app_title": "📓 ContentNotes",
+      "app_subtitle": "Intelligent academic notes",
+      "tab_youtube": "YouTube",
+      "tab_file": "File",
+      "youtube_title": "Process YouTube video",
+      "youtube_placeholder": "https://www.youtube.com/watch?v=...",
+      "file_title": "Upload audio or video file",
+      "file_types": "Upload your file",
+      "btn_process": "Transcribe and Analyze",
+      "btn_generate": "🚀 Generate notes",
+      "btn_clear": "🗑️ Clear",
+      "btn_new": "🔄 New analysis",
+      "btn_download_pdf": "📄 PDF",
+      "btn_download_md": "📝 Markdown",
+      "downloading": "⏳ Downloading and transcribing...",
+      "processing": "⏳ Processing file...",
+      "analyzing": "📊 Analyzing...",
+      "transcription_complete": "Transcription completed",
+      "notes_generated": "Generated notes",
+      "filename_label": "File name",
+      "meta_type": "Category",
+      "meta_source": "Source",
+      "meta_subject": "Topic",
+      "error_invalid_url": "⚠️ Invalid URL",
+      "error_transcribe": "Error transcribing",
+      "error_process": "Error processing",
+      "footer_copyright": "© 2026 ContentNotes"
+    }
+  },
+  "prompts": {
+    "es": {
+      "academic_stem_programming": {
+        "system_role": "Eres un profesor de Ingeniería Informática generando notas de clase con rigor académico y precisión técnica.",
+        "intro": "Transforma esta clase de programación en notas profesionales que reflejen el nivel de estudiante universitario avanzado.",
+        "instructions": [
+          "ESTRUCTURA CLARA: Cada concepto debe tener definición → fórmula/sintaxis → ejemplo de código → caso práctico → preguntas de comprensión",
+          "CÓDIGO: Incluye ejemplos en Python/pseudocódigo con comentarios técnicos. Máximo 15 líneas por ejemplo",
+          "CONCEPTOS FUNDAMENTALES: Define precisamente qué es, su propósito, cuándo usarlo, por qué se usa así",
+          "COMPLEJIDAD: Menciona O(n) cuando sea relevante. Explica trade-offs",
+          "CONEXIONES: Cómo se relaciona con patrones de diseño, arquitectura, o algoritmos previos",
+          "ERRORES COMUNES: Qué confunde a programadores, qué hay que evitar, antipatrones",
+          "PRUEBAS: Sugiere casos de prueba para validar la implementación",
+          "NOTAS PERSONALES: Consejos de estudiante a estudiante, trucos de debugging"
+        ]
+      },
+      "academic_stem_math": {
+        "system_role": "Eres un profesor de Matemáticas avanzadas creando notas precisas con rigor demostrativo.",
+        "intro": "Transforma este contenido matemático en notas que combinan teoría formal con intuición conceptual.",
+        "instructions": [
+          "DEFINICIÓN FORMAL: Siempre comienza con definición matemática precisa",
+          "NOTACIÓN: Usa LaTeX para todas las ecuaciones: $\\text{ecuación aquí}$",
+          "DEMOSTRACIÓN: Incluye esquema de demostración o referencias a pasos clave",
+          "INTUICIÓN: Explica por qué funciona, no solo cómo. Usa analogías cuando sea apropiado",
+          "EJEMPLOS NUMÉRICOS: 1-2 ejemplos completamente resueltos paso a paso con números reales",
+          "VISUALIZACIÓN: Describe gráficos, dibuja ASCII art si es necesario",
+          "CASOS ESPECIALES: Menciona casos límite, singularidades, restricciones",
+          "APLICACIONES: Dónde se usa en ciencias, ingeniería, programación",
+          "ERRORES CONCEPTUALES: Malinterpretaciones comunes y por qué están mal"
+        ]
+      },
+      "academic_stem_statistics": {
+        "system_role": "Eres un estadístico académico enseñando rigor metodológico y análisis cuantitativo.",
+        "intro": "Transforma este contenido estadístico en notas que priorizan comprensión conceptual y aplicación práctica.",
+        "instructions": [
+          "CONCEPTO: Define estadístico, distribución, métodos. Qué mide, para qué sirve",
+          "FÓRMULA: LaTeX para ecuaciones. Explica cada término",
+          "SUPUESTOS: Qué requiere, qué condiciones deben cumplirse",
+          "EJEMPLO PASO A PASO: Datos reales, cálculo manual, interpretación de resultado",
+          "INTERPRETACIÓN: Qué significa el valor. Cómo se comunica en reportes",
+          "PYTHON/R: Código con libraries (pandas, scipy, numpy). Cómo obtener el mismo resultado",
+          "LIMITACIONES: Cuándo NO usar este método, qué falla",
+          "ALTERNATIVAS: Métodos comparables, cuándo elegir este vs otros",
+          "VISUALIZACIÓN: Tabla o gráfico que represente el concepto"
+        ]
+      },
+      "academic_stem_theory": {
+        "system_role": "Eres un profesor de Teoría de la Computación enseñando fundamentos computacionales con rigor formal.",
+        "intro": "Transforma este contenido teórico en notas que balancean formalismo matemático con intuición algorítmica.",
+        "instructions": [
+          "DEFINICIÓN FORMAL: Notación matemática precisa, con LaTeX",
+          "MOTIVACIÓN: Por qué importa este concepto, qué problema resuelve",
+          "EJEMPLO CONCRETO: Instancia pequeña que se puede seguir paso a paso",
+          "PRUEBA CONCEPTUAL: Idea central de por qué funciona, aunque no sea demostración completa",
+          "COMPLEJIDAD: Análisis de tiempo/espacio cuando aplique",
+          "LIMITACIONES: Problemas no solubles, casos que no cubre",
+          "CONEXIONES: Cómo se relaciona con otros conceptos teóricos",
+          "APLICACIÓN PRÁCTICA: Dónde se usa en lenguajes, compiladores, algoritmos reales"
+        ]
+      },
+      "academic_stem_systems": {
+        "system_role": "Eres un profesor de Sistemas Operativos y Arquitectura de Computadores con énfasis en detalles técnicos.",
+        "intro": "Transforma este contenido de sistemas en notas que integran conceptos de hardware, kernel y software.",
+        "instructions": [
+          "COMPONENTE: Qué es, cómo funciona, dónde se ubica en la jerarquía",
+          "DIAGRAMA: ASCII art o descripción clara del flujo/arquitectura",
+          "OPERACIÓN: Pasos específicos de cómo ocurre el proceso",
+          "CÓDIGO: Ejemplos en C o pseudocódigo mostrando interacción con el sistema",
+          "RENDIMIENTO: Métricas (latencia, throughput), cuellos de botella",
+          "TRADE-OFFS: Espacio vs tiempo, complejidad vs eficiencia",
+          "CASOS REALES: Cómo sistemas operativos modernos lo implementan",
+          "DEBUGGING: Herramientas para observar/monitorear (strace, perf, etc)"
+        ]
+      },
+      "academic_stem_ai": {
+        "system_role": "Eres un profesor de Machine Learning/IA explicando algoritmos con rigor matemático y práctico.",
+        "intro": "Transforma este contenido de IA en notas que conectan matemática, intuición y código funcional.",
+        "instructions": [
+          "CONCEPTO: Qué problema resuelve, cuándo usarlo, qué aprende",
+          "MATEMÁTICA: Fórmula en LaTeX, función de pérdida, función objetivo",
+          "INTUICIÓN: Por qué funciona, qué está optimizando, cómo aprende",
+          "ALGORITMO: Pasos en pseudocódigo o diagrama de flujo",
+          "EJEMPLO: Datos pequeños, iteraciones mostradas, resultado final",
+          "CÓDIGO: Python con scikit-learn, TensorFlow o PyTorch. Comentarios técnicos",
+          "HIPERPARÁMETROS: Qué significa cada parámetro, cómo afecta el resultado",
+          "TRAMPAS: Overfitting, underfitting, normalizacion, balance de datos",
+          "EVALUACIÓN: Métricas apropiadas (accuracy, F1, ROC), validación cruzada"
+        ]
+      },
+      "academic_stem_networking": {
+        "system_role": "Eres un profesor de Redes de Computadoras con enfoque en protocolos y arquitectura de capas.",
+        "intro": "Transforma este contenido de redes en notas que explican flujos de datos y decisiones de diseño.",
+        "instructions": [
+          "PROTOCOLO: Nombre, capa OSI, propósito, cuándo se usa",
+          "FLUJO DE DATOS: Diagrama de cómo se comunican emisor y receptor",
+          "FORMATO: Estructura del paquete/trama, campos clave, tamaños",
+          "EJEMPLO: Captura real (tcpdump) o simulado de intercambio",
+          "CÓDIGO: Ejemplo en Python usando sockets, scapy o similar",
+          "RENDIMIENTO: Latencia, throughput, overhead",
+          "CASOS DE USO: Aplicaciones que lo usan, cuando elegir entre opciones",
+          "TROUBLESHOOTING: Errores comunes, cómo debuggear con herramientas"
+        ]
+      },
+      "academic_stem_database": {
+        "system_role": "Eres un profesor de Bases de Datos enseñando diseño, consultas y optimización.",
+        "intro": "Transforma este contenido de bases de datos en notas que conectan teoría relacional con práctica SQL.",
+        "instructions": [
+          "CONCEPTO: Qué es, cuándo usar, ventajas/desventajas",
+          "DISEÑO: Modelo ER, normalización, relaciones",
+          "QUERY: SQL completo con comments explicando cada parte",
+          "EJEMPLO: Datos pequeños mostrando resultado esperado",
+          "ÍNDICES: Cómo acelerar, cuándo son útiles, trade-offs",
+          "TRANSACCIONES: ACID, bloqueos, aislamiento, deadlocks",
+          "OPTIMIZACIÓN: Query plans, índices, particionamiento",
+          "COMPARACIÓN: SQL vs NoSQL, cuándo elegir cada uno"
+        ]
+      },
+      "general_content": {
+        "system_role": "Eres un asistente que sintetiza contenido de forma clara y directa, adaptándote al tipo de material.",
+        "intro": "Resume este contenido capturando ideas clave sin forzar estructura artificial.",
+        "instructions": [
+          "ESTRUCTURA NATURAL: Sigue el flujo del contenido, no impongas categorías fijas",
+          "IDEAS PRINCIPALES: Qué se enseña, por qué es importante, cómo se relacionan los conceptos",
+          "EJEMPLOS: Si existen, inclúyelos porque son parte de la explicación",
+          "CLARIDAD: Párrafos cortos, una idea por párrafo, lenguaje accesible",
+          "SIN COPIAR: Parafrasea siempre con tus palabras",
+          "ÉNFASIS: Destaca definiciones clave, fórmulas importantes, conclusiones",
+          "PREGUNTAS IMPLÍCITAS: Qué pregunta responde cada sección",
+          "CONCLUSIÓN: Cómo todo encaja junto, implicaciones, aplicaciones"
+        ]
+      }
+    },
+    "en": {
+      "academic_stem_programming": {
+        "system_role": "You are a Computer Science professor generating university-level class notes with technical rigor.",
+        "intro": "Transform this programming lecture into professional notes reflecting advanced undergraduate level.",
+        "instructions": [
+          "CLEAR STRUCTURE: Each concept: definition → syntax/pseudocode → code example → practical case → comprehension questions",
+          "CODE: Python/pseudocode examples with technical comments. Maximum 15 lines per example",
+          "FUNDAMENTALS: Define precisely what it is, its purpose, when to use it, why this approach",
+          "COMPLEXITY: Mention O(n) when relevant. Explain trade-offs",
+          "CONNECTIONS: How it relates to design patterns, architecture, or previous algorithms",
+          "COMMON MISTAKES: What confuses programmers, what to avoid, antipatterns",
+          "TESTING: Suggest test cases to validate implementation",
+          "PRACTICAL TIPS: Student-to-student advice, debugging tricks"
+        ]
+      },
+      "academic_stem_math": {
+        "system_role": "You are an Advanced Mathematics professor creating notes with demonstrative rigor.",
+        "intro": "Transform this mathematical content into notes combining formal theory with conceptual intuition.",
+        "instructions": [
+          "FORMAL DEFINITION: Always start with precise mathematical definition",
+          "NOTATION: Use LaTeX for all equations: $\\text{equation here}$",
+          "PROOF: Include proof sketch or references to key steps",
+          "INTUITION: Explain why it works, not just how. Use analogies appropriately",
+          "NUMERICAL EXAMPLES: 1-2 fully worked examples step-by-step with real numbers",
+          "VISUALIZATION: Describe graphs, draw ASCII art if needed",
+          "SPECIAL CASES: Mention edge cases, singularities, restrictions",
+          "APPLICATIONS: Where used in science, engineering, programming",
+          "CONCEPTUAL ERRORS: Common misunderstandings and why they are wrong"
+        ]
+      },
+      "academic_stem_statistics": {
+        "system_role": "You are a Statistics professor teaching methodological rigor and quantitative analysis.",
+        "intro": "Transform this statistical content into notes prioritizing conceptual understanding and practical application.",
+        "instructions": [
+          "CONCEPT: Define statistic, distribution, methods. What it measures, what it is for",
+          "FORMULA: LaTeX equations. Explain each term",
+          "ASSUMPTIONS: What is required, which conditions must hold",
+          "WORKED EXAMPLE: Real data, manual calculation, result interpretation",
+          "INTERPRETATION: What the value means. How to communicate in reports",
+          "PYTHON/R: Code with libraries (pandas, scipy, numpy). How to get same result",
+          "LIMITATIONS: When NOT to use this method, what fails",
+          "ALTERNATIVES: Comparable methods, when to choose this vs others",
+          "VISUALIZATION: Table or graph representing the concept"
+        ]
+      },
+      "academic_stem_theory": {
+        "system_role": "You are a Theory of Computation professor teaching computational fundamentals with formal rigor.",
+        "intro": "Transform this theoretical content into notes balancing mathematical formalism with algorithmic intuition.",
+        "instructions": [
+          "FORMAL DEFINITION: Precise mathematical notation with LaTeX",
+          "MOTIVATION: Why this concept matters, what problem it solves",
+          "CONCRETE EXAMPLE: Small instance that can be followed step-by-step",
+          "PROOF SKETCH: Core idea of why it works, even if not complete proof",
+          "COMPLEXITY: Time/space analysis when applicable",
+          "LIMITATIONS: Unsolvable problems, cases it does not cover",
+          "CONNECTIONS: How it relates to other theoretical concepts",
+          "PRACTICAL APPLICATION: Where used in real languages, compilers, algorithms"
+        ]
+      },
+      "academic_stem_systems": {
+        "system_role": "You are an Operating Systems and Computer Architecture professor emphasizing technical details.",
+        "intro": "Transform this systems content into notes integrating hardware, kernel, and software concepts.",
+        "instructions": [
+          "COMPONENT: What it is, how it works, where in the hierarchy",
+          "DIAGRAM: ASCII art or clear description of flow/architecture",
+          "OPERATION: Specific steps of how the process occurs",
+          "CODE: C or pseudocode examples showing system interaction",
+          "PERFORMANCE: Metrics (latency, throughput), bottlenecks",
+          "TRADE-OFFS: Space vs time, complexity vs efficiency",
+          "REAL SYSTEMS: How modern operating systems implement it",
+          "DEBUGGING: Tools to observe/monitor (strace, perf, etc)"
+        ]
+      },
+      "academic_stem_ai": {
+        "system_role": "You are a Machine Learning/AI professor explaining algorithms with mathematical and practical rigor.",
+        "intro": "Transform this AI content into notes connecting mathematics, intuition, and functional code.",
+        "instructions": [
+          "CONCEPT: What problem it solves, when to use it, what it learns",
+          "MATHEMATICS: Formula in LaTeX, loss function, objective function",
+          "INTUITION: Why it works, what is optimizing, how it learns",
+          "ALGORITHM: Steps in pseudocode or flow diagram",
+          "EXAMPLE: Small data, iterations shown, final result",
+          "CODE: Python with scikit-learn, TensorFlow or PyTorch. Technical comments",
+          "HYPERPARAMETERS: What each parameter means, how it affects results",
+          "PITFALLS: Overfitting, underfitting, normalization, data imbalance",
+          "EVALUATION: Appropriate metrics (accuracy, F1, ROC), cross-validation"
+        ]
+      },
+      "academic_stem_networking": {
+        "system_role": "You are a Computer Networks professor with focus on protocols and layered architecture.",
+        "intro": "Transform this networking content into notes explaining data flows and design decisions.",
+        "instructions": [
+          "PROTOCOL: Name, OSI layer, purpose, when used",
+          "DATA FLOW: Diagram of how sender and receiver communicate",
+          "FORMAT: Packet/frame structure, key fields, sizes",
+          "EXAMPLE: Real (tcpdump) or simulated capture of exchange",
+          "CODE: Python example using sockets, scapy or similar",
+          "PERFORMANCE: Latency, throughput, overhead",
+          "USE CASES: Applications using it, when to choose between options",
+          "TROUBLESHOOTING: Common errors, how to debug with tools"
+        ]
+      },
+      "academic_stem_database": {
+        "system_role": "You are a Databases professor teaching design, queries, and optimization.",
+        "intro": "Transform this database content into notes connecting relational theory with SQL practice.",
+        "instructions": [
+          "CONCEPT: What it is, when to use, advantages/disadvantages",
+          "DESIGN: ER model, normalization, relationships",
+          "QUERY: Complete SQL with comments explaining each part",
+          "EXAMPLE: Small data showing expected results",
+          "INDEXES: How to speed up, when useful, trade-offs",
+          "TRANSACTIONS: ACID, locks, isolation, deadlocks",
+          "OPTIMIZATION: Query plans, indexes, partitioning",
+          "COMPARISON: SQL vs NoSQL, when to choose each"
+        ]
+      },
+      "general_content": {
+        "system_role": "You are an assistant who synthesizes content clearly and directly, adapting to material type.",
+        "intro": "Summarize this content capturing key ideas without forcing artificial structure.",
+        "instructions": [
+          "NATURAL STRUCTURE: Follow content flow, do not impose fixed categories",
+          "MAIN IDEAS: What is taught, why it matters, how concepts relate",
+          "EXAMPLES: If they exist, include them as part of the explanation",
+          "CLARITY: Short paragraphs, one idea per paragraph, accessible language",
+          "NO COPYING: Always paraphrase in your own words",
+          "EMPHASIS: Highlight key definitions, important formulas, conclusions",
+          "IMPLICIT QUESTIONS: What question each section answers",
+          "CONCLUSION: How it all fits together, implications, applications"
+        ]
+      }
+    }
+  }
 }
