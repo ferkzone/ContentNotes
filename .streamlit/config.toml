@@ -1,0 +1,8 @@
+[server]
+maxUploadSize = 1000
+
+[client]
+showErrorDetails = true
+
+[logger]
+level = "debug"
