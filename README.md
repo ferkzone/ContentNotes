@@ -109,16 +109,9 @@ app.py                  main application
 optimized_pipeline.py   Gemini integration and note generation
 pdf_generator.py        PDF and HTML export
 config.json             prompts and translations
-local_worker.py         optional FastAPI server (see below)
 requirements.txt        Python dependencies
 .env                    your API key (not committed to git)
 ```
-
----
-
-## The local worker (optional)
-
-`local_worker.py` is a small FastAPI server that you do not need for the desktop version. It exists for the cloud deployment scenario where yt-dlp cannot run on the server. If you are running the app locally, ignore it entirely.
 
 ---
 
