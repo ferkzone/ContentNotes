@@ -1,4 +1,4 @@
-# ContentNotes
+# [ContentNotes](https://tuapp.streamlit.app)
 
 A local application that takes any audio or video file and turns it into structured academic notes using Google's Gemini AI. It runs entirely on your machine, works offline for everything except the AI calls, and supports YouTube videos directly through yt-dlp.
 
